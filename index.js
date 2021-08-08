@@ -6,26 +6,6 @@ const rl = readline.createInterface({
 
 let outputHashMap = {}
 
-// const recursiveFunction = (input) => {
-//   // console.log(`I a citizen of ${country}`);
-//   const arrInput = input.split(" ")
-//   const command = arrInput[0]
-//   const key = arrInput[1]
-//   const values = arrInput.slice(2)
-//   if (outputHashMap[key] !== undefined) {
-//     const oldValues = outputHashMap[key]
-//     outputHashMap[key] = oldValues.concat(values)
-//   } else {
-//     outputHashMap[key] = values
-//   }
-//   console.log(`Command: ${command}`)
-//   console.log(`Key: ${key}`)
-//   console.log(`Values: ${values}`)
-//   console.log(outputHashMap)
-//   // rl.close();
-//   recursiveFunction(input)
-// }
-
 const handleInput = (input) => {
   const command = input.split(" ")[0]
   const key = input.split(" ")[1]
@@ -114,18 +94,12 @@ const recursiveAsyncReadLine = function () {
   rl.question('node-cli >', function (answer) {
     if (answer == 'exit') //we need some base case, for recursion
       return rl.close(); //closing RL and returning from function.
-    // console.log(`Got it! Your answer was: ${answer}`);
     handleInput(answer)
     recursiveAsyncReadLine(); //Calling this function again to ask new question
   });
 };
 
 recursiveAsyncReadLine()
-
-// const nodeCliQuestion = rl.question("node-cli >")
-// const nodeCliQuestion = rl.question("node-cli >", (input) => recursiveFunction(input));
-
-// rl.question("node-cli >", (input) => recursiveFunction(input));
 
 rl.on("close", function () {
   console.log("\nBYE BYE !!!");
