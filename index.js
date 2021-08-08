@@ -1,108 +1,118 @@
-const readline = require("readline");
-const rl = readline.createInterface({
+var readline = require("readline")
+var process = require("process");
+var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-let outputHashMap = {}
-console.log(process.version)
+let outputHashMap = {};
+console.log(process.version);
 
 const handleInput = (input) => {
-  const command = input.split(" ")[0]
-  const key = input.split(" ")[1]
-  const values = input.split(" ").slice(2)
+  const command = input.split(" ")[0];
+  const key = input.split(" ")[1];
+  const values = input.split(" ").slice(2);
   switch (command) {
     case "ADD":
       if (outputHashMap[key] !== undefined) {
-        const oldValues = outputHashMap[key]
-        outputHashMap[key] = oldValues.concat(values)
+        const oldValues = outputHashMap[key];
+        outputHashMap[key] = oldValues.concat(values);
       } else {
-        outputHashMap[key] = values
+        outputHashMap[key] = values;
       }
-      break;
+      return outputHashMap;
     case "MEMBERS":
       if (outputHashMap[key] !== undefined) {
-        console.log(outputHashMap[key])
+        console.log(outputHashMap[key]);
       } else {
-        console.log("ERROR, key does not exist")
+        console.log("ERROR, key does not exist");
       }
-      break;
+      return outputHashMap;
     case "KEYS":
-      if (Object.keys(outputHashMap).length > 1) {
-        console.log(Object.keys(outputHashMap))
+      if (Object.keys(outputHashMap).length >= 1) {
+        console.log(Object.keys(outputHashMap));
       } else {
-        console.log("No keys to output")
+        console.log("No keys to output");
       }
-      break;
+      return outputHashMap;
     case "REMOVE":
       if (outputHashMap.hasOwnProperty(key)) {
         if (outputHashMap[key].length < 2) {
-          delete outputHashMap[key]
+          delete outputHashMap[key];
         } else {
-          const oldValues = outputHashMap[key]
-          const newValues = oldValues.filter((value) => !values.includes(value))
-          outputHashMap[key] = newValues
+          const oldValues = outputHashMap[key];
+          const newValues = oldValues.filter(
+            (value) => !values.includes(value)
+          );
+          outputHashMap[key] = newValues;
         }
       } else {
-        console.log("ERROR, key does not exist")
+        console.log("ERROR, key does not exist");
       }
-      break;
+      return outputHashMap;
     case "REMOVEALL":
       if (outputHashMap.hasOwnProperty(key)) {
-        delete outputHashMap[key]
+        delete outputHashMap[key];
       } else {
-        console.log("ERROR, key does not exist")
+        console.log("ERROR, key does not exist");
       }
-      break;
+      return outputHashMap;
     case "CLEAR":
-      outputHashMap = {}
-      console.log("cleared")
-      break;
+      outputHashMap = {};
+      console.log("cleared");
+      return outputHashMap;
     case "KEYEXISTS":
-      outputHashMap.hasOwnProperty(key) ? console.log(true) : console.log(false)
-      break;
+      outputHashMap.hasOwnProperty(key)
+        ? console.log(true)
+        : console.log(false);
+      return outputHashMap;
     case "MEMBEREXISTS":
       if (outputHashMap.hasOwnProperty(key)) {
-        let doesExist = false
+        let doesExist = false;
         values.forEach((value) => {
-          outputHashMap[key].includes(value) ? doesExist = true : doesExist = false
-        })
-        console.log(doesExist)
+          outputHashMap[key].includes(value)
+            ? (doesExist = true)
+            : (doesExist = false);
+        });
+        console.log(doesExist);
       } else {
-        console.log("ERROR, key does not exist")
+        console.log("ERROR, key does not exist");
       }
-      break;
+      return outputHashMap;
     case "ALLMEMBERS":
       if (Object.keys(outputHashMap).length > 1) {
-        console.log(Object.values(outputHashMap))
+        console.log(Object.values(outputHashMap));
       } else {
-        console.log("(empty set)")
+        console.log("(empty set)");
       }
-      break;
+      return outputHashMap;
     case "ITEMS":
       if (Object.keys(outputHashMap).length > 1) {
-        console.log(Object.entries(outputHashMap))
+        console.log(Object.entries(outputHashMap));
       } else {
-        console.log("(empty set)")
+        console.log("(empty set)");
       }
-      break;
+      return outputHashMap;
     default:
-      return
+      return;
   }
-}
+};
 
 const recursiveAsyncReadLine = function () {
-  rl.question('node-cli >', function (answer) {
-    if (answer == 'exit') //we need some base case, for recursion
+  rl.question("node-cli >", function (answer) {
+    if (answer == "exit")
+      //we need some base case, for recursion
       return rl.close(); //closing RL and returning from function.
-    handleInput(answer)
+    handleInput(answer);
     recursiveAsyncReadLine(); //Calling this function again to ask new question
   });
 };
 
-recursiveAsyncReadLine()
+recursiveAsyncReadLine();
 
 rl.on("close", function () {
   console.log("\nBYE BYE !!!");
   process.exit(0);
 });
+
+module.exports = handleInput
