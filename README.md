@@ -4,8 +4,9 @@
 
 ## How to Run
 
-- `node index.js`
+- `npm install`
+- `npm start`
 
-## NPM package Dependencies
+## How to test
 
-- `readline`
+- `npm test`
