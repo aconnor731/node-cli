@@ -5,6 +5,7 @@ const rl = readline.createInterface({
 });
 
 let outputHashMap = {}
+console.log(process.version)
 
 const handleInput = (input) => {
   const command = input.split(" ")[0]
