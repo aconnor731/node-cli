@@ -6,7 +6,6 @@ var rl = readline.createInterface({
 });
 
 let outputHashMap = {};
-// console.log(process.version);
 
 const handleInput = (input) => {
   const command = input.split(" ")[0];
@@ -20,29 +19,33 @@ const handleInput = (input) => {
           if (!oldValues.includes(value)) {
             outputHashMap[key] = oldValues.concat(values);
             console.log('Added')
+            return "Added"
           } else {
             console.log("ERROR, member already exists for the key")
+            return "ERROR, member already exists for the key"
           }
         })
       } else {
         outputHashMap[key] = values;
         console.log('Added')
+        return "Added"
       }
-      return outputHashMap;
     case "MEMBERS":
       if (outputHashMap[key] !== undefined) {
         console.log(outputHashMap[key]);
+        return outputHashMap[key]
       } else {
         console.log("ERROR, key does not exist");
+              return "ERROR, key does not exist"
       }
-      return outputHashMap;
     case "KEYS":
       if (Object.keys(outputHashMap).length >= 1) {
         console.log(Object.keys(outputHashMap));
+        return Object.keys(outputHashMap)
       } else {
         console.log("empty set");
+        return "empty set"
       }
-      return Object.keys(outputHashMap);
     case "REMOVE":
       if (outputHashMap[key] !== undefined) {
         if (outputHashMap[key].length < 2) {
@@ -50,8 +53,10 @@ const handleInput = (input) => {
             if (outputHashMap[key].includes(value)) {
               delete outputHashMap[key];
               console.log("Removed")
+              return "Removed"
             } else {
               console.log("ERROR, member does not exist")
+              return "ERROR, key does not exist"
             }
           })
         } else {
@@ -61,28 +66,34 @@ const handleInput = (input) => {
           );
           outputHashMap[key] = newValues;
           console.log('Removed')
+        return "Removed"
         }
       } else {
         console.log("ERROR, key does not exist");
+        return "ERROR, key does not exist"
       }
       return outputHashMap;
     case "REMOVEALL":
       if (outputHashMap[key] !== undefined) {
         delete outputHashMap[key];
         console.log("Removed")
+        return "Removed"
       } else {
         console.log("ERROR, key does not exist");
+        return "ERROR, key does not exist"
       }
-      return outputHashMap;
     case "CLEAR":
       outputHashMap = {};
       console.log("cleared");
-      return outputHashMap;
+      return "cleared";
     case "KEYEXISTS":
-      outputHashMap[key] !== undefined
-        ? console.log(true)
-        : console.log(false);
-      return outputHashMap;
+      if (outputHashMap[key] !== undefined) {
+        console.log(true)
+        return true
+      } else {
+        console.log(false);
+        return false
+      }
     case "MEMBEREXISTS":
       if (outputHashMap[key]) {
         let doesExist = false;
@@ -92,24 +103,29 @@ const handleInput = (input) => {
             : (doesExist = false);
         });
         console.log(doesExist);
+        return doesExist
       } else {
         console.log("false");
+        return "false"
       }
       return outputHashMap;
     case "ALLMEMBERS":
       if (Object.keys(outputHashMap).length >= 1) {
         console.log(Object.values(outputHashMap));
+        return Object.values(outputHashMap)
       } else {
         console.log("(empty set)");
+        return "(empty set)"
       }
       return outputHashMap;
     case "ITEMS":
       if (Object.keys(outputHashMap).length >= 1) {
         console.log(Object.entries(outputHashMap));
+        return Object.entries(outputHashMap)
       } else {
         console.log("(empty set)");
+        return "(empty set)"
       }
-      return outputHashMap;
     default:
       return;
   }
