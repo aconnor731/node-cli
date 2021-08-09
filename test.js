@@ -16,7 +16,7 @@ const testCaseInput1 = {
 }
 
 describe('handleInput()', () => {
-  it('should ADD key with value', () => {
+  it('KEYS', () => {
     const outputHash = { 'foo': ['bar' ] }
     expect(assert(outputHash, handleInput(testCaseInput1.add, outputHash)))
   })
