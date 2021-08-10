@@ -7,7 +7,7 @@ var rl = readline.createInterface({
 
 let outputHashMap = {};
 
-const handleInput = (input) => {
+const handleInput = (input, outputHash) => {
   const command = input.split(" ")[0];
   const key = input.split(" ")[1];
   const values = input.split(" ").slice(2);
@@ -48,24 +48,24 @@ const handleInput = (input) => {
         return "empty set"
       }
     case "REMOVE":
-      if (outputHashMap[key] !== undefined) {
-        if (outputHashMap[key].length < 2) {
+      if (outputHash[key] !== undefined) {
+        if (outputHash[key].length < 2) {
           values.forEach((value) => {
-            if (outputHashMap[key].includes(value)) {
-              delete outputHashMap[key];
+            if (outputHash[key].includes(value)) {
+              delete outputHash[key];
               console.log("Removed")
               return "Removed"
             } else {
               console.log("ERROR, member does not exist")
-              return "ERROR, key does not exist"
+              return "ERROR, member does not exist"
             }
           })
         } else {
-          const oldValues = outputHashMap[key];
+          const oldValues = outputHash[key];
           const newValues = oldValues.filter(
             (value) => !values.includes(value)
           );
-          outputHashMap[key] = newValues;
+          outputHash[key] = newValues;
           console.log('Removed')
         return "Removed"
         }
@@ -73,7 +73,6 @@ const handleInput = (input) => {
         console.log("ERROR, key does not exist");
         return "ERROR, key does not exist"
       }
-      return outputHashMap;
     case "REMOVEALL":
       if (outputHashMap[key] !== undefined) {
         delete outputHashMap[key];
@@ -84,9 +83,10 @@ const handleInput = (input) => {
         return "ERROR, key does not exist"
       }
     case "CLEAR":
-      outputHashMap = {};
+      // outputHashMap = {};
+      outputHash = {};
       console.log("cleared");
-      return "cleared";
+      return "Cleared";
     case "KEYEXISTS":
       if (outputHashMap[key] !== undefined) {
         console.log(true)
@@ -109,23 +109,21 @@ const handleInput = (input) => {
         console.log("false");
         return "false"
       }
-      return outputHashMap;
     case "ALLMEMBERS":
       if (Object.keys(outputHashMap).length >= 1) {
         console.log(Object.values(outputHashMap));
         return Object.values(outputHashMap)
       } else {
-        console.log("(empty set)");
-        return "(empty set)"
+        console.log("empty set");
+        return "empty set"
       }
-      return outputHashMap;
     case "ITEMS":
       if (Object.keys(outputHashMap).length >= 1) {
         console.log(Object.entries(outputHashMap));
         return Object.entries(outputHashMap)
       } else {
-        console.log("(empty set)");
-        return "(empty set)"
+        console.log("empty set");
+        return "empty set"
       }
     default:
       return;

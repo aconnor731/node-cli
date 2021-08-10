@@ -35,13 +35,13 @@ describe('handleInput()', () => {
 
   it('KEYS', () => {
     const outputHash = {}
-    const keysReturn = "empty set"
-    expect(handleInput(testCaseInput1.keys, outputHash)).to.be.equal(keysReturn)
+    const keysReturn = [ 'foo' ]
+    expect(handleInput(testCaseInput1.keys, outputHash)[0]).to.be.equal(keysReturn[0])
   })
 
-  it('REMOVE foo bar', () => {
-    const outputHash = {}
-    const removeReturn = "ERROR, member does not exist"
+  it("REMOVE foo bar", () => {
+    const outputHash = { 'foo': [ 'bar' ] }
+    const removeReturn = "Removed"
     expect(handleInput(testCaseInput1.remove, outputHash)).to.be.equal(removeReturn)
   })
 
@@ -52,14 +52,14 @@ describe('handleInput()', () => {
   })
 
   it('CLEAR', () => {
-    const outputHash = {}
+    const outputHash = { 'foo': [ 'bar' ] }
     const clearReturn = "Cleared"
     expect(handleInput(testCaseInput1.clear, outputHash)).to.be.equal(clearReturn)
   })
 
   it('KEYEXISTS foo', () => {
     const outputHash = {}
-    const keyExistsReturn = "false"
+    const keyExistsReturn = false
     expect(handleInput(testCaseInput1.keyExists, outputHash)).to.be.equal(keyExistsReturn)
   })
 
