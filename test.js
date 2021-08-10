@@ -16,9 +16,20 @@ const testCaseInput1 = {
 }
 
 describe('handleInput()', () => {
-  it('KEYS', () => {
+  it('ADD', () => {
     const outputHash = { 'foo': ['bar' ] }
-    expect(assert(outputHash, handleInput(testCaseInput1.add, outputHash)))
+    const addReturn = "Added"
+    expect(assert(addReturn, handleInput(testCaseInput1.add, outputHash)))
+  })
+
+  it('MEMBERS', () => {
+    const membersReturn = ""
+    expect(assert(membersReturn, handleInput(testCaseInput1.members, outputHash)))
+  })
+
+  it('KEYS', () => {
+    const keysReturn = ""
+    expect(assert(keysReturn, handleInput(testCaseInput1.keys, outputHash)))
   })
 
   it('should ADD key with multiple values', () => {
