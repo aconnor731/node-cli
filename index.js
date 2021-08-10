@@ -83,12 +83,11 @@ const handleInput = (input, outputHash) => {
         return "ERROR, key does not exist"
       }
     case "CLEAR":
-      // outputHashMap = {};
       outputHash = {};
       console.log("cleared");
       return "Cleared";
     case "KEYEXISTS":
-      if (outputHashMap[key] !== undefined) {
+      if (outputHash[key] !== undefined) {
         console.log(true)
         return true
       } else {

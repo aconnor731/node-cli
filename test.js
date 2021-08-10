@@ -57,7 +57,7 @@ describe('handleInput()', () => {
     expect(handleInput(testCaseInput1.clear, outputHash)).to.be.equal(clearReturn)
   })
 
-  it('KEYEXISTS foo', () => {
+  it('KEYEXISTS foo on empty dictionary', () => {
     const outputHash = {}
     const keyExistsReturn = false
     expect(handleInput(testCaseInput1.keyExists, outputHash)).to.be.equal(keyExistsReturn)
