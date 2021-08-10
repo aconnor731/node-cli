@@ -30,6 +30,7 @@ const handleInput = (input) => {
         console.log('Added')
         return "Added"
       }
+      break;
     case "MEMBERS":
       if (outputHashMap[key] !== undefined) {
         console.log(outputHashMap[key]);
